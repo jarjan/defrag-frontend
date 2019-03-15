@@ -10,10 +10,8 @@ const Home = () => (
     <Nav />
 
     <div className="hero">
-      <h1 className="title">Welcome to DEFRAG!</h1>
-      <p className="description">
-        To get started, edit <code>pages/index.js</code> and save to reload.
-      </p>
+      <h1 className="title">Welcome to DEFRAG Hackathon!</h1>
+      <p className="description">Choose!</p>
 
       <div className="row">
         <Link href="/photo">
