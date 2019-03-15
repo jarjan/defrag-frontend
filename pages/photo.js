@@ -1,22 +1,29 @@
 import React, { Component } from "react";
 import Webcam from "react-webcam";
 
-class Photo extends Component {
+class PhotoCapture extends Component {
+  state = {
+    videoConstraints: {
+      width: 1280,
+      height: 720,
+      facingMode: { exact: "environment" }
+    },
+    imageSrc: null,
+    webcam: null
+  };
+
   setRef = webcam => {
     this.webcam = webcam;
   };
 
   capture = () => {
     const imageSrc = this.webcam.getScreenshot();
-    console.log(imageSrc);
+
+    this.setState({ imageSrc });
   };
 
   render() {
-    const videoConstraints = {
-      width: 1280,
-      height: 720,
-      facingMode: { exact: "environment" }
-    };
+    const { imageSrc, videoConstraints } = this.state;
     return (
       <div>
         <p>Take a photo:</p>
@@ -28,10 +35,13 @@ class Photo extends Component {
           width={350}
           videoConstraints={videoConstraints}
         />
+        <br />
         <button onClick={this.capture}>Capture photo</button>
+        <hr />
+        <img src={imageSrc} />
       </div>
     );
   }
 }
 
-export default Photo;
+export default PhotoCapture;
