@@ -13,6 +13,8 @@ import {
   Skeleton,
   Tabs,
   Spin,
+  Row,
+  Col,
   Progress
 } from "antd";
 import axios from "axios";
@@ -91,7 +93,8 @@ class Home extends Component {
 
     const data = new FormData(this.form.current);
     data.delete("photoId");
-    data.append("photoId", this.state.selectedFile, Date.now());
+    if (this.state.selectedFile)
+      data.append("photoId", this.state.selectedFile, Date.now());
 
     axios
       .post("https://defrag-backend.herokuapp.com/check", data, {
@@ -155,14 +158,21 @@ class Home extends Component {
                   encType="multipart/form-data"
                   method="post"
                 >
-                  <Item label="Company name:">
-                    <Input name="companyName" />
-                  </Item>
+                  <Row>
+                    <Col span={11}>
+                      <Item label="Company name:">
+                        <Input name="companyName" />
+                      </Item>
+                    </Col>
+                    <Col span={2} />
+                    <Col span={11}>
+                      <Item label="Company tax ID:">
+                        <Input name="taxId" />
+                      </Item>
+                    </Col>
+                  </Row>
                   <Item label="Beneficial owner:">
                     <Input name="beneficialOwner" />
-                  </Item>
-                  <Item label="Tax ID:">
-                    <Input name="taxId" />
                   </Item>
 
                   <Tabs defaultActiveKey="1">
