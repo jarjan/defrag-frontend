@@ -4,25 +4,21 @@ import axios from "axios";
 
 const columns = [
   {
-    title: "Name",
-    dataIndex: "name",
-    sorter: true,
-    render: name => `${name.first} ${name.last}`,
-    width: "20%"
+    title: "Company Name",
+    dataIndex: "companyName"
   },
   {
-    title: "Gender",
-    dataIndex: "gender",
-    filters: [
-      { text: "Male", value: "male" },
-      { text: "Female", value: "female" }
-    ],
-    width: "20%"
+    title: "Company Tax ID",
+    dataIndex: "taxId"
   },
   {
-    title: "Email",
-    dataIndex: "email"
+    title: "Beneficial Owner",
+    dataIndex: "beneficialOwner"
   }
+  //   {
+  //     title: "Results",
+  //     dataIndex: "results"
+  //   }
 ];
 
 class TableWrapper extends Component {
@@ -36,37 +32,13 @@ class TableWrapper extends Component {
     this.fetch();
   }
 
-  handleTableChange = (pagination, filters, sorter) => {
-    const pager = { ...this.state.pagination };
-    pager.current = pagination.current;
-    this.setState({
-      pagination: pager
-    });
-    this.fetch({
-      results: pagination.pageSize,
-      page: pagination.current,
-      sortField: sorter.field,
-      sortOrder: sorter.order,
-      ...filters
-    });
-  };
-
   fetch = (params = {}) => {
-    console.log("params:", params);
     this.setState({ loading: true });
-    const data = {
-      results: 10,
-      ...params
-    };
-    axios.get("https://randomuser.me/api", data).then(res => {
-      const pagination = { ...this.state.pagination };
-      // Read total count from server
-      // pagination.total = data.totalCount;
-      pagination.total = 200;
+    axios.get("https://defrag-backend.herokuapp.com/history").then(res => {
+      console.log(res);
       this.setState({
         loading: false,
-        data: res.data.results,
-        pagination
+        data: res.data.histories
       });
     });
   };
@@ -75,11 +47,9 @@ class TableWrapper extends Component {
     return (
       <Table
         columns={columns}
-        rowKey={record => record.login.uuid}
+        rowKey={item => item.taxId}
         dataSource={this.state.data}
-        pagination={this.state.pagination}
         loading={this.state.loading}
-        onChange={this.handleTableChange}
       />
     );
   }

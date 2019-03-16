@@ -33,6 +33,7 @@ const History = () => (
       </Header>
       <Content>
         <Card style={{ maxWidth: 800, margin: "auto", paddingTop: 20 }}>
+          <h4>Your check history:</h4>
           <Table />
         </Card>
       </Content>
