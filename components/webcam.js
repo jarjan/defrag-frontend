@@ -1,12 +1,19 @@
 import React, { Component } from "react";
 import Webcam from "react-webcam";
+import { Button } from "antd";
 
 class WebcamCapture extends Component {
   state = {
-    videoConstraints: {
+    back: {
       width: 1280,
       height: 720
     },
+    front: {
+      width: 1280,
+      height: 720,
+      facingMode: { exact: "environment" }
+    },
+    isBack: true,
     imageSrc: null,
     webcam: null
   };
@@ -19,25 +26,26 @@ class WebcamCapture extends Component {
     const imageSrc = this.webcam.getScreenshot();
 
     this.setState({ imageSrc });
+    this.props.onChange(imageSrc);
+  };
+
+  changeCamera = () => {
+    this.setState({ isBack: !this.state.isBack });
   };
 
   render() {
-    const { imageSrc, videoConstraints } = this.state;
+    const { imageSrc, isBack, front, back } = this.state;
     return (
       <div>
-        <p>Take a photo:</p>
+        <Button onClick={this.capture}>Capture photo</Button>
+        <Button onClick={this.changeCamera}>Change camera</Button>
         <Webcam
           audio={false}
-          height={350}
           ref={this.setRef}
           screenshotFormat="image/jpeg"
           width={350}
-          videoConstraints={videoConstraints}
+          videoConstraints={isBack ? back : front}
         />
-        <br />
-        <button onClick={this.capture}>Capture photo</button>
-        <hr />
-        <img src={imageSrc} />
       </div>
     );
   }
