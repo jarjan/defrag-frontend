@@ -1,0 +1,23 @@
+.ant-btn,
+.ant-input {
+    border-radius: 0px;
+}
+.ant-steps-item-finish > .ant-steps-item-content > .ant-steps-item-title::after,
+.ant-spin-dot i,
+.ant-btn-primary:hover, .ant-btn-primary:focus,
+.ant-btn-primary,
+.ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected,
+.ant-tabs-top .ant-tabs-ink-bar-animated, .ant-tabs-bottom .ant-tabs-ink-bar-animated {
+    background-color: #E9041E;
+}
+.ant-spin,
+.ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon,
+.ant-steps-item-custom.ant-steps-item-process .ant-steps-item-icon > .ant-steps-icon,
+.ant-tabs-nav .ant-tabs-tab:hover, 
+.ant-tabs-nav .ant-tabs-tab-active{
+    color: #E9041E;
+}
+.ant-btn-primary:hover, .ant-btn-primary:focus,
+.ant-btn-primary {
+    border-color: #E9041E;
+}

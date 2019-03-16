@@ -20,6 +20,7 @@ import {
 } from "antd";
 import axios from "axios";
 import "antd/dist/antd.css";
+import "../static/style.css";
 
 const { Step } = Steps;
 const { Header, Footer, Content } = Layout;
@@ -216,7 +217,7 @@ class Home extends Component {
                   <Divider />
                   <img src={imageSrc} style={{ maxWidth: "100%" }} />
                   <Divider />
-                  <Button type="primary" htmlType="submit">
+                  <Button type="primary" htmlType="submit" size="large">
                     Submit
                   </Button>
                   {/* <Progress percent={Math.round(this.state.fileLoading, 2)} /> */}

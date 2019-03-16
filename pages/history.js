@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import Link from "next/link";
 import { Layout, Menu, Card } from "antd";
 import "antd/dist/antd.css";
+import "../static/style.css";
 
 const { Header, Footer, Content } = Layout;
 
