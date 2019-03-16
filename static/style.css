@@ -21,3 +21,7 @@
 .ant-btn-primary {
     border-color: #E9041E;
 }
+.ant-menu-dark, .ant-menu-dark .ant-menu-sub,
+.ant-layout-header {
+    background-color: #000;
+}
