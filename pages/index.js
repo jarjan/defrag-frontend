@@ -1,81 +1,103 @@
-import React from "react";
+import React, { Component, Fragment } from "react";
 import Link from "next/link";
+import { Button, Card, Input, Layout, Steps, Icon } from "antd";
+import "antd/dist/antd.css";
+
+const { Step } = Steps;
+const { Header, Footer, Content } = Layout;
 
 import Head from "../components/head";
-import Nav from "../components/nav";
 
-const Home = () => (
-  <div>
-    <Head title="Home" />
-    <Nav />
+class Home extends Component {
+  state = {
+    currentStep: 0,
+    steps: [
+      { title: "Input", icon: <Icon type="edit" /> },
+      { title: "Verification", icon: <Icon type="solution" /> },
+      { title: "Check", icon: <Icon type="check" /> },
+      { title: "Result", icon: <Icon type="meh" /> }
+    ]
+  };
 
-    <div className="hero">
-      <h1 className="title">Welcome to DEFRAG Hackathon!</h1>
-      <p className="description">Choose!</p>
+  getStatus = index => {
+    const { currentStep } = this.state;
+    return index === currentStep
+      ? "process"
+      : index > currentStep
+      ? "wait"
+      : "finish";
+  };
 
-      <div className="row">
-        <Link href="/photo">
-          <a className="card">
-            <h3>Open Camera</h3>
-            <p>Goto →</p>
-          </a>
-        </Link>
-        <Link href="/webcam">
-          <a className="card">
-            <h3>Open Webcam</h3>
-            <p>Goto →</p>
-          </a>
-        </Link>
-      </div>
-    </div>
+  goNext = () => {
+    const { currentStep } = this.state;
+    this.setState({ currentStep: currentStep + 1 });
+  };
 
-    <style jsx>{`
-      .hero {
-        width: 100%;
-        color: #333;
-      }
-      .title {
-        margin: 0;
-        width: 100%;
-        padding-top: 80px;
-        line-height: 1.15;
-        font-size: 48px;
-      }
-      .title,
-      .description {
-        text-align: center;
-      }
-      .row {
-        max-width: 880px;
-        margin: 80px auto 40px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-      }
-      .card {
-        padding: 18px 18px 24px;
-        width: 220px;
-        text-align: left;
-        text-decoration: none;
-        color: #434343;
-        border: 1px solid #9b9b9b;
-      }
-      .card:hover {
-        border-color: #067df7;
-      }
-      .card h3 {
-        margin: 0;
-        color: #067df7;
-        font-size: 18px;
-      }
-      .card p {
-        margin: 0;
-        padding: 12px 0 0;
-        font-size: 13px;
-        color: #333;
-      }
-    `}</style>
-  </div>
-);
+  goPrev = () => {
+    const { currentStep } = this.state;
+    this.setState({ currentStep: currentStep - 1 });
+  };
+
+  render() {
+    const { currentStep, steps } = this.state;
+    return (
+      <Fragment>
+        <Head title="Home" />
+        <Layout>
+          <Header>Header</Header>
+          <Content style={{ padding: "20px 50px" }}>
+            <Steps style={{ background: "#fff", padding: 24 }}>
+              {steps.map(({ status, title, icon }, index) => (
+                <Step
+                  key={title}
+                  status={this.getStatus(index)}
+                  title={title}
+                  icon={icon}
+                />
+              ))}
+            </Steps>
+
+            {currentStep === 0 && (
+              <Card>
+                Input company name:
+                <Input />
+                <Button onClick={this.goPrev}>Prev</Button>
+                <Button onClick={this.goNext}>Next</Button>
+              </Card>
+            )}
+
+            {currentStep === 1 && (
+              <Card>
+                Doing some verification
+                <Button onClick={this.goPrev}>Prev</Button>
+                <Button onClick={this.goNext}>Next</Button>
+              </Card>
+            )}
+
+            {currentStep === 2 && (
+              <Card>
+                Doing some check
+                <Button onClick={this.goPrev}>Prev</Button>
+                <Button onClick={this.goNext}>Next</Button>
+              </Card>
+            )}
+
+            {currentStep === 3 && (
+              <Card>
+                Here is result
+                <Button onClick={this.goPrev}>Prev</Button>
+                <Button onClick={this.goNext}>Next</Button>
+              </Card>
+            )}
+          </Content>
+          <Footer style={{ textAlign: "center" }}>
+            2019. Big Brother. Societe Generale Equipment Finance (SGEF).
+            BeMyApp.
+          </Footer>
+        </Layout>
+      </Fragment>
+    );
+  }
+}
 
 export default Home;
