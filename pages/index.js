@@ -28,6 +28,7 @@ const { TabPane } = Tabs;
 
 import Head from "../components/head";
 import Webcam from "../components/webcam";
+import Result from "../components/result";
 
 function dataURItoBlob(dataURI) {
   // convert base64 to raw binary data held in a string
@@ -146,10 +147,14 @@ class Home extends Component {
               defaultSelectedKeys={["1"]}
             >
               <Menu.Item key="1">
-                <Link href="/">Home</Link>
+                <Link href="/">
+                  <a>Home</a>
+                </Link>
               </Menu.Item>
               <Menu.Item key="2">
-                <Link href="/history">History</Link>
+                <Link href="/history">
+                  <a>History</a>
+                </Link>
               </Menu.Item>
             </Menu>
           </Header>
@@ -227,10 +232,15 @@ class Home extends Component {
 
               {currentStep === 2 && (
                 <Fragment>
-                  <div>
-                    <h4>Results</h4>
-                    <p>{JSON.stringify(result)}</p>
-                  </div>
+                  <Result result={result} />
+                  <Divider />
+                  <Button
+                    size="large"
+                    type="primary"
+                    onClick={() => this.setState({ currentStep: 0 })}
+                  >
+                    New check
+                  </Button>
                 </Fragment>
               )}
             </Card>

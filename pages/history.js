@@ -20,10 +20,14 @@ const History = () => (
           defaultSelectedKeys={["2"]}
         >
           <Menu.Item key="1">
-            <Link href="/">Home</Link>
+            <Link href="/">
+              <a>Home</a>
+            </Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Link href="/history">History</Link>
+            <Link href="/history">
+              <a>History</a>
+            </Link>
           </Menu.Item>
         </Menu>
       </Header>
