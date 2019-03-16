@@ -94,8 +94,8 @@ class Home extends Component {
     data.append("photoId", this.state.selectedFile, Date.now());
 
     axios
-      // .post("https://defrag-backend.herokuapp.com/check", data, {
-      .post("http://localhost:3000/check", data, {
+      .post("https://defrag-backend.herokuapp.com/check", data, {
+        // .post("http://localhost:3000/check", data, {
         onUploadProgress: ProgressEvent => {
           this.setState({
             fileLoading: (ProgressEvent.loaded / ProgressEvent.total) * 100
