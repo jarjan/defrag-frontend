@@ -23,6 +23,8 @@ const { Item } = Form;
 const { TabPane } = Tabs;
 
 import Head from "../components/head";
+import Webcam from "../components/webcam";
+import Camera from "../components/camera";
 
 class Home extends Component {
   constructor(props) {
@@ -139,9 +141,9 @@ class Home extends Component {
                       </Item>
                     </TabPane>
                     <TabPane tab="Webcam:" key="2">
-                      Content of Tab Pane 2
+                      <Webcam />
                     </TabPane>
-                    <TabPane tab="Camera" key="3">
+                    <TabPane tab="Camera:" key="3">
                       Content of Tab Pane 3
                     </TabPane>
                   </Tabs>

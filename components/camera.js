@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Webcam from "react-webcam";
 
-class PhotoCapture extends Component {
+class CameraCapture extends Component {
   state = {
     videoConstraints: {
       width: 1280,
@@ -44,4 +44,4 @@ class PhotoCapture extends Component {
   }
 }
 
-export default PhotoCapture;
+export default CameraCapture;
