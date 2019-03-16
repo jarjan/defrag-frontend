@@ -1,14 +1,18 @@
 import React, { Component, Fragment } from "react";
 import Link from "next/link";
 import {
-  notification,
+  message,
   Button,
+  Divider,
   Card,
   Input,
   Form,
   Layout,
   Steps,
-  Icon
+  Icon,
+  Skeleton,
+  Tabs,
+  Progress
 } from "antd";
 import axios from "axios";
 import "antd/dist/antd.css";
@@ -16,6 +20,7 @@ import "antd/dist/antd.css";
 const { Step } = Steps;
 const { Header, Footer, Content } = Layout;
 const { Item } = Form;
+const { TabPane } = Tabs;
 
 import Head from "../components/head";
 
@@ -31,9 +36,10 @@ class Home extends Component {
     steps: [
       { title: "Input", icon: <Icon type="edit" /> },
       { title: "Verification", icon: <Icon type="solution" /> },
-      { title: "Check", icon: <Icon type="check" /> },
+      // { title: "Check", icon: <Icon type="check" /> },
       { title: "Result", icon: <Icon type="meh" /> }
-    ]
+    ],
+    result: {}
   };
 
   getStatus = index => {
@@ -57,28 +63,12 @@ class Home extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log("Received values of form: ", values);
-      }
-    });
-  };
+    console.log(e);
 
-  handleselectedFile = event => {
-    this.setState({
-      selectedFile: event.target.files[0],
-      fileLoading: 0
-    });
-  };
-
-  handleUpload = () => {
     const data = new FormData(this.form.current);
-    console.log(data);
-    // data.append("file", this.state.selectedFile, this.state.selectedFile.name);
 
     axios
       .post("https://defrag-backend.herokuapp.com/check", data, {
-        // .post("http://localhost:3000/check", data, {
         onUploadProgress: ProgressEvent => {
           this.setState({
             fileLoading: (ProgressEvent.loaded / ProgressEvent.total) * 100
@@ -86,10 +76,16 @@ class Home extends Component {
         }
       })
       .then(res => {
-        notification.open({
-          message: res.statusText
-        });
+        message.success(res.statusText);
+        this.setState({ result: res.data });
       });
+  };
+
+  handleselectedFile = event => {
+    this.setState({
+      selectedFile: event.target.files[0],
+      fileLoading: 0
+    });
   };
 
   render() {
@@ -100,10 +96,10 @@ class Home extends Component {
         <Head title="Home" />
         <Layout>
           <Header>Header</Header>
-          <Content style={{ padding: "20px 50px" }}>
-            <Card>
-              <Steps style={{ padding: 24 }}>
-                {steps.map(({ status, title, icon }, index) => (
+          <Content>
+            <Card style={{ maxWidth: 600, margin: "auto", paddingTop: 20 }}>
+              <Steps style={{ padding: 20 }}>
+                {steps.map(({ title, icon }, index) => (
                   <Step
                     key={title}
                     status={this.getStatus(index)}
@@ -120,19 +116,41 @@ class Home extends Component {
                   encType="multipart/form-data"
                   method="post"
                 >
-                  <Item label="Input company name:">
-                    <Input />
+                  <Item required label="Company name:">
+                    <Input name="companyName" />
+                  </Item>
+                  <Item required label="Beneficial owner:">
+                    <Input name="beneficialOwner" />
+                  </Item>
+                  <Item required label="Tax ID:">
+                    <Input name="taxId" />
                   </Item>
 
-                  <Input
-                    type="file"
-                    name="photoId"
-                    id="photoId"
-                    onChange={this.handleselectedFile}
-                  />
-                  <Button onClick={this.handleUpload}>Upload</Button>
-                  <div> {Math.round(this.state.fileLoading, 2)} %</div>
+                  <Tabs defaultActiveKey="1">
+                    <TabPane tab="Upload ID:" key="1">
+                      <Item>
+                        <Input
+                          required
+                          type="file"
+                          name="photoId"
+                          id="photoId"
+                          onChange={this.handleselectedFile}
+                        />
+                      </Item>
+                    </TabPane>
+                    <TabPane tab="Webcam:" key="2">
+                      Content of Tab Pane 2
+                    </TabPane>
+                    <TabPane tab="Camera" key="3">
+                      Content of Tab Pane 3
+                    </TabPane>
+                  </Tabs>
 
+                  <Button type="primary" htmlType="submit">
+                    Submit
+                  </Button>
+                  <Progress percent={Math.round(this.state.fileLoading, 2)} />
+                  <Divider />
                   <Button onClick={this.goPrev}>Prev</Button>
                   <Button onClick={this.goNext}>Next</Button>
                 </form>
@@ -140,7 +158,8 @@ class Home extends Component {
 
               {currentStep === 1 && (
                 <Fragment>
-                  Doing some verification
+                  <Skeleton active />
+                  <Divider />
                   <Button onClick={this.goPrev}>Prev</Button>
                   <Button onClick={this.goNext}>Next</Button>
                 </Fragment>
@@ -148,15 +167,8 @@ class Home extends Component {
 
               {currentStep === 2 && (
                 <Fragment>
-                  Doing some check
-                  <Button onClick={this.goPrev}>Prev</Button>
-                  <Button onClick={this.goNext}>Next</Button>
-                </Fragment>
-              )}
-
-              {currentStep === 3 && (
-                <Fragment>
-                  Here is result
+                  RESULT
+                  <Divider />
                   <Button onClick={this.goPrev}>Prev</Button>
                   <Button onClick={this.goNext}>Next</Button>
                 </Fragment>
