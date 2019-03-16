@@ -15,6 +15,7 @@ import {
   Spin,
   Row,
   Col,
+  Menu,
   Progress
 } from "antd";
 import axios from "axios";
@@ -137,7 +138,21 @@ class Home extends Component {
       <Fragment>
         <Head title="Home" />
         <Layout>
-          <Header>Header</Header>
+          <Header>
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              style={{ lineHeight: "64px" }}
+              defaultSelectedKeys={["1"]}
+            >
+              <Menu.Item key="1">
+                <Link href="/">Home</Link>
+              </Menu.Item>
+              <Menu.Item key="2">
+                <Link href="/history">History</Link>
+              </Menu.Item>
+            </Menu>
+          </Header>
           <Content>
             <Card style={{ maxWidth: 600, margin: "auto", paddingTop: 20 }}>
               <Steps style={{ padding: 20 }}>
