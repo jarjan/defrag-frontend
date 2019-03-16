@@ -6,12 +6,13 @@ class WebcamCapture extends Component {
   state = {
     back: {
       width: 1280,
-      height: 720
+      height: 720,
+      facingMode: { exact: "environment" }
     },
     front: {
       width: 1280,
       height: 720,
-      facingMode: { exact: "environment" }
+      facingMode: { exact: "user" }
     },
     isBack: true,
     imageSrc: null,
