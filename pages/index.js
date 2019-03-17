@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import Link from "next/link";
 import {
   message,
   Button,
@@ -14,20 +13,19 @@ import {
   Tabs,
   Spin,
   Row,
-  Col,
-  Menu,
-  Progress
+  Col
 } from "antd";
 import axios from "axios";
 import "antd/dist/antd.css";
 import "../static/style.css";
 
 const { Step } = Steps;
-const { Header, Footer, Content } = Layout;
+const { Footer, Content } = Layout;
 const { Item } = Form;
 const { TabPane } = Tabs;
 
 import Head from "../components/head";
+import Header from "../components/header";
 import Webcam from "../components/webcam";
 import Result from "../components/result";
 
@@ -140,25 +138,7 @@ class Home extends Component {
       <Fragment>
         <Head title="Home" />
         <Layout>
-          <Header>
-            <Menu
-              theme="dark"
-              mode="horizontal"
-              style={{ lineHeight: "64px" }}
-              defaultSelectedKeys={["1"]}
-            >
-              <Menu.Item key="1">
-                <Link href="/">
-                  <a>Home</a>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="2">
-                <Link href="/history">
-                  <a>History</a>
-                </Link>
-              </Menu.Item>
-            </Menu>
-          </Header>
+          <Header active="1" />
           <Content>
             <Card style={{ maxWidth: 600, margin: "auto", paddingTop: 20 }}>
               <Steps style={{ padding: 20 }}>
