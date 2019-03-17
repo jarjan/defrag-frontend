@@ -37,7 +37,7 @@ class WebcamCapture extends Component {
   render() {
     const { imageSrc, isBack, front, back } = this.state;
     return (
-      <div>
+      <div onClick={this.capture}>
         <Webcam
           audio={false}
           ref={this.setRef}
@@ -46,7 +46,7 @@ class WebcamCapture extends Component {
           videoConstraints={isBack ? back : front}
         />
         <br />
-        <Button icon="camera" size="large" onClick={this.capture}>
+        <Button icon="camera" size="large">
           Capture photo
         </Button>
         {/* <Button onClick={this.changeCamera}>Change camera</Button> */}
