@@ -80,6 +80,7 @@ class TableWrapper extends Component {
     return (
       <Table
         columns={columns}
+        scroll={{ x: 'fit-content' }}
         rowKey={item => item.taxId}
         dataSource={this.state.data}
         expandedRowRender={record => expandedRowRender(record.results)}
