@@ -6,8 +6,8 @@ class WebcamCapture extends Component {
   state = {
     back: {
       width: 1280,
-      height: 720,
-      facingMode: { exact: "environment" }
+      height: 720
+      // facingMode: { exact: "environment" }
     },
     front: {
       width: 1280,
@@ -38,8 +38,6 @@ class WebcamCapture extends Component {
     const { imageSrc, isBack, front, back } = this.state;
     return (
       <div>
-        <Button onClick={this.capture}>Capture photo</Button>
-        {/* <Button onClick={this.changeCamera}>Change camera</Button> */}
         <Webcam
           audio={false}
           ref={this.setRef}
@@ -47,6 +45,11 @@ class WebcamCapture extends Component {
           width={350}
           videoConstraints={isBack ? back : front}
         />
+        <br />
+        <Button icon="camera" size="large" onClick={this.capture}>
+          Capture photo
+        </Button>
+        {/* <Button onClick={this.changeCamera}>Change camera</Button> */}
       </div>
     );
   }
