@@ -6,7 +6,8 @@ class WebcamCapture extends Component {
   state = {
     back: {
       width: 1280,
-      height: 720
+      height: 720,
+      facingMode: { exact: "environment" }
     },
     front: {
       width: 1280,
@@ -34,11 +35,11 @@ class WebcamCapture extends Component {
   };
 
   render() {
-    const { isBack, front, back } = this.state;
+    const { imageSrc, isBack, front, back } = this.state;
     return (
       <div>
         <Button onClick={this.capture}>Capture photo</Button>
-        <Button onClick={this.changeCamera}>Change camera</Button>
+        {/* <Button onClick={this.changeCamera}>Change camera</Button> */}
         <Webcam
           audio={false}
           ref={this.setRef}
