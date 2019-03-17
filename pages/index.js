@@ -143,7 +143,7 @@ class Home extends Component {
           <Layout.Content>
             <Card style={{ maxWidth: 600, margin: "auto", paddingTop: 20 }}>
               <Logo />
-              <Steps labelPlacement="vertical" style={{ padding: 20 }}>
+              <Steps size="small" labelPlacement="vertical">
                 {steps.map(({ title, icon }, index) => (
                   <Step
                     key={title}
